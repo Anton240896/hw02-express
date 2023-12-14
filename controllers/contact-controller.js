@@ -1,4 +1,5 @@
 import * as contactsService from "../models/contacts.js";
+import { HttpError } from "../helpers/index.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -15,16 +16,12 @@ const getById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const result = await contactsService.getContactById(contactId);
-    res.json(result);
     if (!result) {
-      res.status(404).json({
-        message: "Not found 404",
-      });
+      throw HttpError(404, "Not found");
     }
-  } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    res.json(result);
+  } catch (error) {
+    next(error);
   }
 };
 
