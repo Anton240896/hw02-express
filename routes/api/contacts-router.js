@@ -1,6 +1,6 @@
 import express from "express";
 
-import contactsService from "../../models/contacts/index.js";
+import * as contactsService from "../../models/contacts/index.js";
 
 const contactsRouter = express.Router();
 
