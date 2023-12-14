@@ -7,9 +7,7 @@ contactsRouter.get("/", contactController.getAll);
 
 contactsRouter.get("/:contactId", contactController.getById);
 
-// contactsRouter.post("/", async (req, res, next) => {
-//   res.json({ message: "template message" });
-// });
+contactsRouter.post("/", contactController.add);
 
 // contactsRouter.delete("/:contactId", async (req, res, next) => {
 //   res.json({ message: "template message" });

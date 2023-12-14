@@ -25,7 +25,18 @@ const getById = async (req, res, next) => {
   }
 };
 
+const add = async (req, res, next) => {
+  try {
+    // console.log(req.body);
+    const result = await contactsService.addContact(req, body);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getAll,
   getById,
+  add,
 };
