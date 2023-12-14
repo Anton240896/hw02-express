@@ -1,21 +1,16 @@
 import * as contactsService from "../models/contacts.js";
 import { HttpError } from "../helpers/index.js";
-import Joi from "joi";
-
-const contactAddSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
-});
+import {
+  contactAddSchema,
+  contactUpdateSchema,
+} from "../schemas/contacts-schemas.js";
 
 const getAll = async (req, res, next) => {
   try {
     const result = await contactsService.listContacts();
     res.json(result);
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 
@@ -24,7 +19,7 @@ const getById = async (req, res, next) => {
     const { contactId } = req.params;
     const result = await contactsService.getContactById(contactId);
     if (!result) {
-      throw HttpError(404, "Not found");
+      throw HttpError(404, error.message);
     }
     res.json(result);
   } catch (error) {
@@ -32,11 +27,49 @@ const getById = async (req, res, next) => {
   }
 };
 
-const add = async (req, res, next) => {
+const addById = async (req, res, next) => {
   try {
     const { error } = contactAddSchema.validate(req.body);
-    const result = await contactsService.addContact(req, body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const result = await contactsService.addContact(req.body);
+
     res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateById = async (req, res, next) => {
+  try {
+    const { error } = contactUpdateSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const { id } = req.params;
+    const result = await contactsService.updateContactById(id, req.body);
+    if (!result) {
+      throw HttpError(404, error.message);
+    }
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await contactAddSchema.removeContact(id);
+    if (!result) {
+      throw HttpError(404, error.message);
+    }
+
+    res.json({
+      message: "Contact deleted",
+    });
   } catch (error) {
     next(error);
   }
@@ -45,5 +78,7 @@ const add = async (req, res, next) => {
 export default {
   getAll,
   getById,
-  add,
+  addById,
+  updateById,
+  deleteById,
 };

@@ -45,3 +45,15 @@ export const addContact = async (name, email, phone) => {
   await contactsService(contacts);
   return newContact;
 };
+
+// Повертає об'єкт в json-форматі c оновленням
+export const updatContactById = async (name, email, phone) => {
+  const contacts = await listContacts();
+  const index = movies.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return null;
+  }
+  movies[index] = { ...movies[index], ...data };
+  await updateMovies(movies);
+  return movies[index];
+};

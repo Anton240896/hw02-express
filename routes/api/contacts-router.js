@@ -7,14 +7,10 @@ contactsRouter.get("/", contactController.getAll);
 
 contactsRouter.get("/:contactId", contactController.getById);
 
-contactsRouter.post("/", contactController.add);
+contactsRouter.post("/", contactController.addById);
 
-// contactsRouter.delete("/:contactId", async (req, res, next) => {
-//   res.json({ message: "template message" });
-// });
+contactsRouter.delete("/:contactId", contactController.deleteById);
 
-// contactsRouter.put("/:contactId", async (req, res, next) => {
-//   res.json({ message: "template message" });
-// });
+contactsRouter.put("/:contactId", contactController.updateById);
 
 export default contactsRouter;
