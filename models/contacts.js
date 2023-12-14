@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 const contactsPath = path.resolve("models", "contacts.json");
 // const contactsPath = path.join(__dirname, "contacts.json"); - work only CommonJS
 
-const contactsService = (contacts) =>
+export const contactsService = (contacts) =>
   fs.writeFile(contactsPath, JSON.stringify(contacts, null, 4));
 
 //  Повертає масив контактів.

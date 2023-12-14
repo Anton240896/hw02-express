@@ -1,18 +1,11 @@
 import express from "express";
-
-import * as contactsService from "../../models/contacts.js";
+import contactController from "../../controllers/contact-controller.js";
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", async (req, res, next) => {
-  const result = await contactsService.listContacts();
+contactsRouter.get("/", contactController.getAll);
 
-  res.json(result);
-});
-
-contactsRouter.get("/:contactId", async (req, res, next) => {
-  res.json({ message: "template message" });
-});
+contactsRouter.get("/:contactId", contactController.getById);
 
 contactsRouter.post("/", async (req, res, next) => {
   res.json({ message: "template message" });
