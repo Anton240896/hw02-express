@@ -7,7 +7,7 @@ export const contactAddSchema = Joi.object({
   email: Joi.string().required().messages({
     "any.required": `"email" must be exist"`,
   }),
-  phone: Joi.number().required().messages({
+  phone: Joi.string().required().messages({
     "any.required": `"number" must be exist`,
   }),
 });
