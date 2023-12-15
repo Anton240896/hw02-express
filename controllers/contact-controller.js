@@ -31,11 +31,11 @@ const addById = async (req, res, next) => {
   try {
     const { error } = contactAddSchema.validate(req.body);
     if (error) {
-      throw HttpError(400, error.message);
+      throw HttpError(404, error.message);
     }
     const result = await contactsService.addContact(req.body);
 
-    res.status(201).json(result);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
