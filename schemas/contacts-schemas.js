@@ -13,6 +13,5 @@ export const contactAddSchema = Joi.object({
 });
 
 export const contactUpdateSchema = Joi.object({
-  title: Joi.string(),
-  director: Joi.string(),
+  name: Joi.string(),
 });
