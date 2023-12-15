@@ -53,7 +53,7 @@ const updateById = async (req, res, next) => {
       throw HttpError(404, error.message);
     }
 
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
