@@ -35,7 +35,7 @@ const addById = async (req, res, next) => {
     }
     const result = await contactsService.addContact(req.body);
 
-    res.status(200).json(result);
+    res.status(201).json(result);
   } catch (error) {
     next(error);
   }
