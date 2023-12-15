@@ -67,7 +67,7 @@ const deleteById = async (req, res, next) => {
       throw HttpError(404, error.message);
     }
 
-    res.json({
+    res.status(200).json({
       message: "Contact deleted",
     });
   } catch (error) {
